@@ -1,0 +1,43 @@
+version: '3.1'
+
+services:
+  api:
+    build: ./backend/api
+    volumes:
+      - ./backend/api:/app
+    environment:
+      DB_URL: mongodb://mongo:27017
+      DB_USERNAME: root
+      DB_PASSWORD: example
+      DB_NAME: todo
+    # command: sh -c "node seed.js && npm start"
+    command: npm start
+    ports:
+      - 4000:4000
+    depends_on:
+      - mongo
+
+  # REF: https://hub.docker.com/_/mongo
+  mongo:
+    image: mongo
+    restart: always
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: example
+    ports:
+      - 27017:27017
+    volumes:
+      - ./backend/db:/data/db
+
+  # REF: https://hub.docker.com/_/mongo
+  mongo-express:
+    image: mongo-express
+    restart: always
+    environment:
+      ME_CONFIG_MONGODB_ADMINUSERNAME: root
+      ME_CONFIG_MONGODB_ADMINPASSWORD: example
+      ME_CONFIG_MONGODB_URL: mongodb://root:example@mongo:27017/
+    ports:
+      - 8081:8081
+    depends_on:
+      - mongo    
