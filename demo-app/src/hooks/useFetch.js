@@ -52,6 +52,10 @@ export const useFetch = (uri) => {
     if (!uri) return;
 
     fetchAll();
+
+    // exhausive-deps に fetchAll を入れると無限ループが出る
+    // 回避策としては、 useCallback or
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [uri]);
 
   return { loading, data, error, post, sending, patch };
