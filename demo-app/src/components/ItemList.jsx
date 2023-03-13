@@ -7,7 +7,7 @@ export const ItemList = ({ list, onCheck, showCheckedOnly }) => {
         .filter((item) => (showCheckedOnly ? !item.checked : true))
         .map((item, i) => (
           <Box
-            key={item._id}
+            key={item.id}
             sx={{
               backgroundColor: item.checked ? '#bbb' : '#eee',
               borderRadius: 2,
@@ -17,10 +17,7 @@ export const ItemList = ({ list, onCheck, showCheckedOnly }) => {
               alignItems: 'center',
             }}
           >
-            <Checkbox
-              checked={item.checked}
-              onChange={() => onCheck(item.id)}
-            />
+            <Checkbox checked={item.checked} onChange={() => onCheck(item)} />
             <Box>{item.text}</Box>
           </Box>
         ))}

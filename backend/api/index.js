@@ -1,5 +1,5 @@
 import express from "express";
-import cors from 'cors'
+import cors from "cors";
 import mongoose from "mongoose";
 import swaggerUi from "swagger-ui-express";
 import swaggerJSDoc from "swagger-jsdoc";
@@ -10,11 +10,17 @@ const DB_URL = process.env.DB_URL;
 const DB_USERNAME = process.env.DB_USERNAME;
 const DB_PASSWORD = process.env.DB_PASSWORD;
 const DB_NAME = process.env.DB_NAME;
+const ORIGIN_URL = process.env.ORIGIN_URL;
 
 const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(cors())
+app.use(
+  cors({
+    origin: [ORIGIN_URL],
+    optionsSuccessStatus: 204,
+  })
+);
 app.use(
   "/docs",
   swaggerUi.serve,
@@ -58,11 +64,10 @@ app.post("/todos", async (req, res) => {
   res.status(201).json(todo);
 });
 
-app.patch("/todos", async (req, res) => {
+app.patch("/todos/:id", async (req, res) => {
   const id = req.params.id;
-  const todo = await Todo.findById(id);
-  const updatedTodo = await todo.updateOne({ _id: id });
-  res.status(204);
+  const todo = await Todo.findByIdAndUpdate(id, req.body);
+  res.status(201).json(todo);
 });
 
 app.delete("/todos/:id", async (req, res) => {

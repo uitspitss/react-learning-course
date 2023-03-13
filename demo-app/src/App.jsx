@@ -5,34 +5,34 @@ import './App.css';
 import { ItemList } from './components/ItemList';
 import { ToDoForm } from './components/ToDoForm';
 import { useFetch } from './hooks/useFetch';
-import { usePost } from './hooks/usePost';
 
 const App = () => {
   // const [list, setList] = useState([]);
   const [notCheckedOnly, setNotCheckedOnly] = useState(false);
 
-  const { data: list, loading } = useFetch('http://localhost:4000/todos');
-  const { post, sending } = usePost('http://localhost:4000/todos');
+  const {
+    data: list,
+    loading,
+    post,
+    patch,
+  } = useFetch('http://localhost:4000/todos');
 
   const addItem = async (data) => {
     // setList((prev) => [...prev, { ...data, checked: false }]);
     post(data);
   };
 
-  const checkItem = (itemId) => {
+  const checkItem = (item) => {
     // setList(
-    //   list.map((item) =>
-    //     item.id === itemId ? { ...item, checked: !item.checked } : item
+    //   list.map((i) =>
+    //     i.id === itemId ? { ...i, checked: !i.checked } : i
     //   )
     // );
+    patch(item._id, { ...item, checked: !item.checked });
   };
 
   if (!list || loading) {
     return <p>loading...</p>;
-  }
-
-  if (sending) {
-    return <p>sending...</p>;
   }
 
   return (

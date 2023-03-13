@@ -10,6 +10,7 @@ services:
       DB_USERNAME: root
       DB_PASSWORD: example
       DB_NAME: todo
+      ORIGIN_URL: http://localhost:3000
     # command: sh -c "node seed.js && npm start"
     command: npm start
     ports:
