@@ -13,13 +13,13 @@ const App = () => {
   const {
     data: list,
     loading,
-    post,
-    patch,
+    create,
+    update,
   } = useFetch('http://localhost:4000/todos');
 
   const addItem = async (data) => {
     // setList((prev) => [...prev, { ...data, checked: false }]);
-    post(data);
+    create(data);
   };
 
   const checkItem = (item) => {
@@ -28,7 +28,7 @@ const App = () => {
     //     i.id === itemId ? { ...i, checked: !i.checked } : i
     //   )
     // );
-    patch(item._id, { ...item, checked: !item.checked });
+    update(item._id, { ...item, checked: !item.checked });
   };
 
   if (!list || loading) {

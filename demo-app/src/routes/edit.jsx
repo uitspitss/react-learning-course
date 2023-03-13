@@ -9,11 +9,11 @@ const Edit = () => {
   const {
     data: item,
     loading,
-    patch,
+    update,
   } = useFetchOne('http://localhost:4000/todos', todoId);
 
   const updateItem = async (data) => {
-    patch(data);
+    update(data);
   };
 
   if (!item || loading) {

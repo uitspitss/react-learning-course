@@ -14,7 +14,7 @@ export const useFetch = (uri) => {
       .catch(setError);
   };
 
-  const post = async (data) => {
+  const create = async (data) => {
     if (!uri) return;
 
     setSending(true);
@@ -31,7 +31,7 @@ export const useFetch = (uri) => {
       .finally(() => setSending(false));
   };
 
-  const patch = async (id, data) => {
+  const update = async (id, data) => {
     if (!uri || !id) return;
 
     setSending(true);
@@ -58,5 +58,5 @@ export const useFetch = (uri) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [uri]);
 
-  return { loading, data, error, post, sending, patch };
+  return { loading, data, error, create, sending, update };
 };

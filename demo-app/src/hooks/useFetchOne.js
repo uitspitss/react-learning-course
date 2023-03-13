@@ -14,7 +14,7 @@ export const useFetchOne = (uri, id) => {
       .catch(setError);
   };
 
-  const patch = async (data) => {
+  const update = async (data) => {
     if (!uri || !id) return;
 
     setSending(true);
@@ -41,5 +41,5 @@ export const useFetchOne = (uri, id) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [uri]);
 
-  return { loading, data, error, sending, patch };
+  return { loading, data, error, sending, update };
 };
