@@ -4,22 +4,33 @@ import { useState } from 'react';
 import './App.css';
 import { ItemList } from './components/ItemList';
 import { ToDoForm } from './components/ToDoForm';
+import { useFetch } from './hooks/useFetch';
 
 const App = () => {
-  const [list, setList] = useState([]);
+  // const [list, setList] = useState([]);
   const [notCheckedOnly, setNotCheckedOnly] = useState(false);
 
+  const {
+    data: list,
+    loading,
+    error,
+  } = useFetch('http://localhost:4000/todos');
+
   const addItem = (data) => {
-    setList((prev) => [...prev, { ...data, checked: false }]);
+    // setList((prev) => [...prev, { ...data, checked: false }]);
   };
 
   const checkItem = (itemId) => {
-    setList(
-      list.map((item) =>
-        item.id === itemId ? { ...item, checked: !item.checked } : item
-      )
-    );
+    // setList(
+    //   list.map((item) =>
+    //     item.id === itemId ? { ...item, checked: !item.checked } : item
+    //   )
+    // );
   };
+
+  if (!list) {
+    return <p>loading...</p>;
+  }
 
   return (
     <div className="App">

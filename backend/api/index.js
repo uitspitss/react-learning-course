@@ -1,4 +1,5 @@
 import express from "express";
+import cors from 'cors'
 import mongoose from "mongoose";
 import swaggerUi from "swagger-ui-express";
 import swaggerJSDoc from "swagger-jsdoc";
@@ -13,6 +14,7 @@ const DB_NAME = process.env.DB_NAME;
 const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(cors())
 app.use(
   "/docs",
   swaggerUi.serve,
