@@ -1,10 +1,10 @@
 import { Box, Switch, Typography } from '@mui/material';
 import { Container } from '@mui/system';
 import { useState } from 'react';
-import './App.css';
 import { ItemList } from './components/ItemList';
 import { ToDoForm } from './components/ToDoForm';
 import { useFetch } from './hooks/useFetch';
+import styles from './App.module.css';
 
 const App = () => {
   // const [list, setList] = useState([]);
@@ -36,7 +36,7 @@ const App = () => {
   }
 
   return (
-    <div className="App">
+    <div className={styles.App}>
       <Container maxWidth="sm" sx={{ py: 4 }}>
         <Box sx={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
           <Typography variant="h3">ToDo アプリ</Typography>
