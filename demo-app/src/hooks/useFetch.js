@@ -8,7 +8,7 @@ export const useFetch = (uri) => {
 
   const fetchAll = () => {
     fetch(uri)
-      .then((data) => data.json())
+      .then((response) => response.json())
       .then(setData)
       .then(() => setLoading(false))
       .catch(setError);
@@ -23,8 +23,8 @@ export const useFetch = (uri) => {
       method: 'POST',
       body: JSON.stringify(data),
     })
-      .then((data) => {
-        data.json();
+      .then((response) => {
+        response.json();
         fetchAll();
       })
       .catch(setError)
@@ -40,8 +40,8 @@ export const useFetch = (uri) => {
       method: 'PATCH',
       body: JSON.stringify(data),
     })
-      .then((data) => {
-        data.json();
+      .then((response) => {
+        response.json();
         fetchAll();
       })
       .catch(setError)

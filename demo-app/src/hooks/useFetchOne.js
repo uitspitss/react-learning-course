@@ -8,7 +8,7 @@ export const useFetchOne = (uri, id) => {
 
   const fetchOne = () => {
     fetch(`${uri}/${id}`)
-      .then((data) => data.json())
+      .then((response) => response.json())
       .then(setData)
       .then(() => setLoading(false))
       .catch(setError);
@@ -23,8 +23,8 @@ export const useFetchOne = (uri, id) => {
       method: 'PATCH',
       body: JSON.stringify(data),
     })
-      .then((data) => {
-        data.json();
+      .then((response) => {
+        response.json();
         fetchOne();
       })
       .catch(setError)
