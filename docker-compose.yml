@@ -4,7 +4,7 @@ services:
   api:
     build: ./backend/api
     volumes:
-      - ./backend/api:/app
+      - ./backend/api/src:/app/src
     environment:
       DB_URL: mongodb://mongo:27017
       DB_USERNAME: root
@@ -21,7 +21,7 @@ services:
   # REF: https://hub.docker.com/_/mongo
   mongo:
     image: mongo
-    restart: always
+    # restart: always
     environment:
       MONGO_INITDB_ROOT_USERNAME: root
       MONGO_INITDB_ROOT_PASSWORD: example
@@ -33,7 +33,7 @@ services:
   # REF: https://hub.docker.com/_/mongo
   mongo-express:
     image: mongo-express
-    restart: always
+    # restart: always
     environment:
       ME_CONFIG_MONGODB_ADMINUSERNAME: root
       ME_CONFIG_MONGODB_ADMINPASSWORD: example
