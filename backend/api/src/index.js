@@ -2,8 +2,8 @@ import express from "express";
 import cors from "cors";
 import mongoose from "mongoose";
 import swaggerUi from "swagger-ui-express";
-import swaggerJSDoc from "swagger-jsdoc";
-import { Todo } from "./models.js";
+import endpoints from "./endpoints.js";
+import swaggerFile from "./swagger-output.json" assert { type: "json" };
 
 const PORT = process.env.PORT || 4000;
 const DB_URL = process.env.DB_URL;
@@ -16,16 +16,7 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cors());
-app.use(
-  "/docs",
-  swaggerUi.serve,
-  swaggerUi.setup(
-    swaggerJSDoc({
-      swaggerDefinition: { info: { title: "todo api", version: "1.0.0" } },
-      apis: ["./index.js"],
-    })
-  )
-);
+app.use("/docs", swaggerUi.serve, swaggerUi.setup(swaggerFile));
 
 mongoose
   .connect(DB_URL, {
@@ -42,35 +33,8 @@ mongoose
     console.error("failed to connect to db");
   });
 
-app.get("/", (req, res) => res.json({ status: "up" }));
-
-app.get("/todos", async (req, res) => {
-  const todos = await Todo.find();
-  res.json(todos);
-});
-
-app.get("/todos/:id", async (req, res) => {
-  const todo = await Todo.findById(req.params.id);
-  res.json(todo);
-});
-
-app.post("/todos", async (req, res) => {
-  const todo = await Todo.create(req.body);
-  res.status(201).json(todo);
-});
-
-app.patch("/todos/:id", async (req, res) => {
-  const id = req.params.id;
-  const todo = await Todo.findByIdAndUpdate(id, req.body);
-  res.status(201).json(todo);
-});
-
-app.delete("/todos/:id", async (req, res) => {
-  const id = req.params.id;
-  const todo = await Todo.findById(id);
-  res.status(204);
-});
-
 app.listen(PORT, () => {
   console.log(`app is runnning on port ${PORT}`);
 });
+
+endpoints(app);
