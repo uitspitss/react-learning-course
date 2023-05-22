@@ -33,12 +33,12 @@ const endpoints = (app) => {
     */
 
     if (!mongoose.isValidObjectId(req.params.todoId)) {
-      res.status(400).json({ message: "invalid params" });
+      return res.status(400).json({ message: "invalid params" });
     }
 
     const todo = await Todo.findById(req.params.todoId);
     if (!todo) {
-      res.status(404).json({ message: "not found" });
+      return res.status(404).json({ message: "not found" });
     }
     res.json(todo);
   });
@@ -81,7 +81,7 @@ const endpoints = (app) => {
     const id = req.params.todoId;
     const todo = await Todo.findById(id);
     if (!todo) {
-      res.status(404).json({ message: "not found" });
+      return res.status(404).json({ message: "not found" });
     }
     res.status(204).send();
   });
