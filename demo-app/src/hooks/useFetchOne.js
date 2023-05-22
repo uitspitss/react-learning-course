@@ -1,17 +1,24 @@
 import { useEffect, useState } from 'react';
 
 export const useFetchOne = (uri, id) => {
-  const [data, setData] = useState();
-  const [error, setError] = useState();
+  const [data, setData] = useState(null);
+  const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
   const [sending, setSending] = useState(false);
 
   const fetchOne = () => {
+    setLoading(true);
     fetch(`${uri}/${id}`)
-      .then((response) => response.json())
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error('error');
+        }
+
+        return response.json();
+      })
       .then(setData)
-      .then(() => setLoading(false))
-      .catch(setError);
+      .catch(setError)
+      .finally(() => setLoading(false));
   };
 
   const update = async (data) => {
@@ -24,6 +31,9 @@ export const useFetchOne = (uri, id) => {
       body: JSON.stringify(data),
     })
       .then((response) => {
+        if (!response.ok) {
+          throw new Error('failed fetch');
+        }
         response.json();
         fetchOne();
       })

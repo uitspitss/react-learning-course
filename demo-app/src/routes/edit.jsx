@@ -9,6 +9,7 @@ const Edit = () => {
   const {
     data: item,
     loading,
+    error,
     update,
   } = useFetchOne('http://localhost:4000/todos', todoId);
 
@@ -16,8 +17,12 @@ const Edit = () => {
     update(data);
   };
 
-  if (!item || loading) {
+  if (loading) {
     return <p>loading...</p>;
+  }
+
+  if (error) {
+    return <p>error</p>;
   }
 
   return (
