@@ -1,0 +1,9 @@
+.text {
+  color: black;
+  background-color: #cccccc;
+}
+
+.text.dark {
+  color: white;
+  background-color: #333333;
+}

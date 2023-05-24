@@ -1,0 +1,15 @@
+version: '3.1'
+
+services:
+  app:
+    build: .
+    volumes:
+      - ./src:/app/src
+      - ./public:/app/public
+      - ./build:/app/build
+    ports:
+      - 3000:3000
+  server:
+    build: ./server
+    ports:
+      - 9000:9000
