@@ -1,4 +1,4 @@
-version: '3.1'
+version: "3.1"
 
 services:
   app:
@@ -8,3 +8,5 @@ services:
       - ./public:/app/public
     ports:
       - 3000:3000
+    environment:
+      - WATCHPACK_POLLING=true
