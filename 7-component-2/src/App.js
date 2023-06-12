@@ -6,15 +6,7 @@ const Child = (props) => {
 
   return (
     <div className="child">
-      <div>{props.children}</div>
-      <p>child: {val}</p>
-      <form className="form">
-        <input
-          type="text"
-          value={val}
-          onChange={(e) => setVal(e.target.value)}
-        />
-      </form>
+      <h2>Child</h2>
     </div>
   );
 };
@@ -23,16 +15,8 @@ const App = () => {
   const [val, setVal] = useState("");
 
   return (
-    <div className="App">
+    <div className="parent">
       <h1>Parent</h1>
-      <form className="form">
-        <input
-          type="text"
-          value={val}
-          onChange={(e) => setVal(e.target.value)}
-        />
-      </form>
-      <Child>from parent: {val}</Child>
     </div>
   );
 };
