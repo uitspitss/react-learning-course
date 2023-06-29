@@ -1,45 +1,13 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
-// import App from "./App";
+import App from "./App";
 import reportWebVitals from "./reportWebVitals";
-import {
-  createBrowserRouter,
-  Link,
-  RouterProvider,
-  useParams,
-} from "react-router-dom";
-
-const User = () => {
-  const { userId } = useParams();
-
-  return <p>user: {userId}</p>;
-};
-
-const router = createBrowserRouter([
-  {
-    path: "/",
-    element: (
-      <div>
-        <p>index</p>
-        <p>
-          <Link to="/user/1">to user1</Link>
-          <Link to="/user/2">to user2</Link>
-          <Link to="/user/99">to user99</Link>
-        </p>
-      </div>
-    ),
-  },
-  {
-    path: "/user/:userId",
-    element: <User />,
-  },
-]);
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-    <RouterProvider router={router} />
+    <App />
   </React.StrictMode>
 );
 
