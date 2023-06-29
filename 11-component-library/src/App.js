@@ -1,6 +1,5 @@
 import { useState } from "react";
 import "./App.css";
-import { Box, Button, Stack, TextField } from "@mui/material";
 
 const App = () => {
   const [error, setError] = useState(null);
@@ -30,19 +29,22 @@ const App = () => {
   return (
     <div className="App">
       <p>{error}</p>
-      <Box component="form" onSubmit={handleSubmit}>
-        <Stack spacing={2}>
-          <section>
-            <TextField name="title" label="title" />
-          </section>
-          <section>
-            <TextField name="body" label="body" />
-          </section>
-          <Button type="submit">submit</Button>
-        </Stack>
-      </Box>
+      <form onSubmit={handleSubmit}>
+        <section>
+          <label>
+            name:
+            <input name="title" />
+          </label>
+        </section>
+        <section>
+          <label>
+            body:
+            <input name="body" />
+          </label>
+        </section>
+        <button type="submit">submit</button>
+      </form>
     </div>
   );
 };
-
 export default App;
