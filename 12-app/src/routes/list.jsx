@@ -1,7 +1,16 @@
-import { Box, Switch, TextField, Typography } from '@mui/material';
+import {
+  Box,
+  Switch,
+  TextField,
+  Typography,
+  Stack,
+  Checkbox,
+  IconButton,
+} from '@mui/material';
+import EditIcon from '@mui/icons-material/Edit';
 import { Container } from '@mui/system';
 import { useContext } from 'react';
-import { ItemList } from '../components/ItemList';
+import { Link } from 'react-router-dom';
 import { TodoCreateForm } from '../components/TodoCreateForm';
 import { useTodos } from '../hooks/useTodos';
 import { FilterContext } from '../components/providers/FilterProvider';
@@ -42,12 +51,42 @@ const List = () => {
             <Box>未チェックのみ表示</Box>
           </Box>
         </Box>
-        <ItemList
-          list={todos}
-          onCheck={checkItem}
-          showCheckedItems={filters.showCheckedItems}
-          searchTerm={filters.searchTerm}
-        />
+        <Stack spacing={2}>
+          {todos
+            .filter((item) => {
+              const re = new RegExp(filters.searchTerm);
+              return re.test(item.text);
+            })
+            .filter((item) => filters.showCheckedItems || !item.checked)
+            .map((item, i) => (
+              <Box
+                key={item._id}
+                sx={{
+                  backgroundColor: item.checked ? '#bbb' : '#eee',
+                  borderRadius: 2,
+                  px: 2,
+                  py: 1,
+                  display: 'flex',
+                  alignItems: 'center',
+                }}
+              >
+                <Checkbox
+                  checked={item.checked}
+                  onChange={() => checkItem(item)}
+                />
+                <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
+                  <Box>{item.text}</Box>
+                  <Box>
+                    <Link to={`/todos/${item._id}`}>
+                      <IconButton>
+                        <EditIcon />
+                      </IconButton>
+                    </Link>
+                  </Box>
+                </Box>
+              </Box>
+            ))}
+        </Stack>
       </Box>
     </Container>
   );
