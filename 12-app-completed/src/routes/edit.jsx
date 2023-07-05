@@ -1,15 +1,17 @@
 import { Box, Typography } from '@mui/material';
 import { Container } from '@mui/system';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { TodoUpdateForm } from '../components/TodoUpdateForm';
 import { useTodo } from '../hooks/useTodo';
 
 const Edit = () => {
   const { todoId } = useParams();
+  const navigate = useNavigate();
   const { todo, loading, error, update } = useTodo(todoId);
 
   const updateTodo = async (data) => {
-    update(data);
+    await update(data);
+    navigate(-1);
   };
 
   if (loading) {
