@@ -13,13 +13,7 @@ export const useTodo = (id) => {
 
     setLoading(true);
     fetch(`${URL}/${id}`)
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error('error');
-        }
-
-        return response.json();
-      })
+      .then((response) => response.json())
       .then(setTodo)
       .catch(setError)
       .finally(() => setLoading(false));
@@ -35,9 +29,6 @@ export const useTodo = (id) => {
       body: JSON.stringify(data),
     })
       .then((response) => {
-        if (!response.ok) {
-          throw new Error('failed fetch');
-        }
         response.json();
         fetchTodo();
       })
