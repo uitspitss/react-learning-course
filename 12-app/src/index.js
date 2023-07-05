@@ -1,16 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import CssBaseline from '@mui/material/CssBaseline';
-import { RouterProvider } from 'react-router-dom';
-import { router } from './routes';
-import { FilterProvider } from './components/providers/FilterProvider';
+import App from './App';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     <CssBaseline />
-    <FilterProvider>
-      <RouterProvider router={router} />
-    </FilterProvider>
+    <App />
   </React.StrictMode>
 );
