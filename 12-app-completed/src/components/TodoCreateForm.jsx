@@ -7,7 +7,6 @@ export const TodoCreateForm = ({ onSubmit }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     const formData = new FormData(e.target);
-    formData.set('id', Math.random().toString(16).slice(2));
     onSubmit(Object.fromEntries(formData.entries()));
     formRef.current.reset();
   };
