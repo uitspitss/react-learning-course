@@ -1,7 +1,11 @@
 import { Box, Typography } from '@mui/material';
 import { Container } from '@mui/system';
+import { useTodos } from './hooks/useTodos';
 
 const App = () => {
+  const { todos } = useTodos();
+  console.log(todos);
+
   return (
     <Container
       maxWidth="sm"
