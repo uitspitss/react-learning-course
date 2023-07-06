@@ -11,3 +11,4 @@ services:
     environment:
       - WATCHPACK_POLLING=true
       - REACT_APP_API_URL=https://react-learning-course-api.vercel.app
+      # - REACT_APP_API_URL=https://localhost:4000
