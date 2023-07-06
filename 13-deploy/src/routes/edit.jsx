@@ -11,7 +11,7 @@ const Edit = () => {
     loading,
     error,
     update,
-  } = useFetchOne('http://localhost:4000/todos', todoId);
+  } = useFetchOne('https://react-learning-course-api.vercel.app/todos', todoId);
 
   const updateItem = async (data) => {
     update(data);

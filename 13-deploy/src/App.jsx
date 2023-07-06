@@ -13,7 +13,7 @@ const App = () => {
     loading,
     create,
     update,
-  } = useFetch('http://localhost:4000/todos');
+  } = useFetch('https://react-learning-course-api.vercel.app/todos');
   const { filters, setSearchTerm, toggleShowCheckedItems } =
     useContext(FilterContext);
 
