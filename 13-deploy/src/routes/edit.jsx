@@ -1,20 +1,17 @@
 import { Box, Typography } from '@mui/material';
 import { Container } from '@mui/system';
-import { useParams } from 'react-router-dom';
-import { ToDoUpdateForm } from '../components/ToDoUpdateForm';
-import { useFetchOne } from '../hooks/useFetchOne';
+import { useParams, useNavigate } from 'react-router-dom';
+import { TodoUpdateForm } from '../components/TodoUpdateForm';
+import { useTodo } from '../hooks/useTodo';
 
 const Edit = () => {
   const { todoId } = useParams();
-  const {
-    data: item,
-    loading,
-    error,
-    update,
-  } = useFetchOne('https://react-learning-course-api.vercel.app/todos', todoId);
+  const navigate = useNavigate();
+  const { todo, loading, error, update } = useTodo(todoId);
 
-  const updateItem = async (data) => {
-    update(data);
+  const updateTodo = async (data) => {
+    await update(data);
+    navigate(-1);
   };
 
   if (loading) {
@@ -26,14 +23,12 @@ const Edit = () => {
   }
 
   return (
-    <div className="App">
-      <Container maxWidth="sm" sx={{ py: 4 }}>
-        <Box sx={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
-          <Typography variant="h3">ToDo アプリ</Typography>
-          <ToDoUpdateForm defaultText={item.text} onSubmit={updateItem} />
-        </Box>
-      </Container>
-    </div>
+    <Container maxWidth="sm" sx={{ py: 4 }}>
+      <Box sx={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
+        <Typography variant="h3">ToDo アプリ</Typography>
+        <TodoUpdateForm defaultText={todo.text} onSubmit={updateTodo} />
+      </Box>
+    </Container>
   );
 };
 
