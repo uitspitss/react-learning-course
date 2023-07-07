@@ -1,11 +1,11 @@
 import { createBrowserRouter } from 'react-router-dom';
-import App from '../App';
+import List from './list';
 import Edit from './edit';
 
 export const router = createBrowserRouter([
   {
     path: '/',
-    element: <App />,
+    element: <List />,
   },
   {
     path: '/todos/:todoId',

@@ -1,62 +1,59 @@
 import { useEffect, useState } from 'react';
 
-export const useFetch = (uri) => {
-  const [data, setData] = useState();
+const URL = `${process.env.REACT_APP_API_URL}/todos`;
+
+export const useTodos = () => {
+  const [todos, setTodos] = useState();
   const [error, setError] = useState();
   const [loading, setLoading] = useState(true);
   const [sending, setSending] = useState(false);
 
-  const fetchAll = () => {
-    fetch(uri)
+  const fetchTodos = () => {
+    setLoading(true);
+    fetch(URL)
       .then((response) => response.json())
-      .then(setData)
+      .then(setTodos)
       .then(() => setLoading(false))
       .catch(setError);
   };
 
   const create = async (data) => {
-    if (!uri) return;
+    if (!data) return;
 
     setSending(true);
-    fetch(uri, {
+    fetch(URL, {
       headers: { 'Content-Type': 'application/json' },
       method: 'POST',
       body: JSON.stringify(data),
     })
       .then((response) => {
         response.json();
-        fetchAll();
+        fetchTodos();
       })
       .catch(setError)
       .finally(() => setSending(false));
   };
 
   const update = async (id, data) => {
-    if (!uri || !id) return;
+    if (!id) return;
 
     setSending(true);
-    fetch(`${uri}/${id}`, {
+    fetch(`${URL}/${id}`, {
       headers: { 'Content-Type': 'application/json' },
       method: 'PATCH',
       body: JSON.stringify(data),
     })
       .then((response) => {
         response.json();
-        fetchAll();
+        fetchTodos();
       })
       .catch(setError)
       .finally(() => setSending(false));
   };
 
   useEffect(() => {
-    if (!uri) return;
+    fetchTodos();
+  }, []);
 
-    fetchAll();
-
-    // exhausive-deps に fetchAll を入れると無限ループが出る
-    // 回避策としては、 useCallback or
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [uri]);
-
-  return { loading, data, error, create, sending, update };
+  return { loading, todos, error, create, update, sending };
 };

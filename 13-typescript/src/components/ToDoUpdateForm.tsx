@@ -1,7 +1,7 @@
 import { Box, Button, TextField } from '@mui/material';
 import { useRef } from 'react';
 
-export const ToDoUpdateForm = ({ onSubmit, defaultText }) => {
+export const TodoUpdateForm = ({ onSubmit, defaultText }) => {
   const formRef = useRef();
 
   const handleSubmit = (e) => {
